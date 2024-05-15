@@ -17,6 +17,13 @@ Route::post('register', 'API\RegisterController@register');
   
 Route::middleware('auth:api')->group( function () {
 	Route::resource('leagues', 'API\LeagueController');
+    Route::get('leagues/{league}/teams', 'API\LeagueController@teams')->name('leagues.teams');
+
+    Route::get('teams/{team}/leagues', 'API\TeamController@leagues')->name('teams.leagues');
+    Route::get('teams/{team}/players', 'API\TeamController@players')->name('teams.players');
+    Route::post('teams/{team}/players', 'API\TeamController@addPlayer');
+
+    Route::post('players', 'API\PlayerController@store');
 });
 
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {

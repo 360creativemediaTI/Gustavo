@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Http\Controllers\API;
-
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
@@ -21,10 +19,22 @@ class LeagueController extends BaseController
     {
         $leagues = League::all();
 
-
         return $this->sendResponse($leagues->toArray(), 'Leagues retrieved successfully.');
     }
 
+    /**
+     * 
+     * 
+     * @return 
+     */
+    public function teams($leagueId)
+    {
+        $league = League::findOrFail($leagueId);
+
+        $teams = $league->teams;
+
+        return response()->json($teams);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -39,7 +49,6 @@ class LeagueController extends BaseController
 
         $validator = Validator::make($input, [
             'name' => 'required',
-            'detail' => 'required'
         ]);
 
 
@@ -89,7 +98,6 @@ class LeagueController extends BaseController
 
         $validator = Validator::make($input, [
             'name' => 'required',
-            'detail' => 'required'
         ]);
 
 
@@ -99,7 +107,6 @@ class LeagueController extends BaseController
 
 
         $league->name = $input['name'];
-        $league->detail = $input['detail'];
         $league->save();
 
 
