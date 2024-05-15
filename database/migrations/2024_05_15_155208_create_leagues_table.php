@@ -15,6 +15,10 @@ class CreateLeaguesTable extends Migration
     {
         Schema::create('leagues', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('name', 150);
+            $table->date('init_date');
+            $table->date('end_date');
+            $table->integer('n_of_dates');
             $table->timestamps();
         });
     }
